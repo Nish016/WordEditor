@@ -1,19 +1,14 @@
 import "./App.css";
-import AboutUs from './Components/AboutUs';
+import AboutUs from "./Components/AboutUs";
 import Navbar from "./Components/Navbar";
 import TextForm from "./Components/TextForm.js";
 import React, { useState } from "react";
 import Alert from "./Components/Alert";
-import{
-  BrowserRouter as Router,
-  Switch,
-  Link,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  const [mode, setMode] = useState("light");  //Setting the Dark and Light mode
-  const [alert, setAlert] = useState(null);   //Alert State
+  const [mode, setMode] = useState("light"); //Setting the Dark and Light mode
+  const [alert, setAlert] = useState(null); //Alert State
 
   //Objects for alert
   const showAlert = (message, type) => {
@@ -43,28 +38,23 @@ function App() {
 
   return (
     <>
-    <Router>
-      <Navbar
-        mode={mode}
-        toggleMode={toggleMode}
-        text={"Enable Dark Mode"}
-      />
-      <Alert alert={alert} />
-      <div className="container my-3">
+      <Router>
+        <Navbar mode={mode} toggleMode={toggleMode} text={"Enable Dark Mode"} />
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Switch>
 
-      <Switch>
-          <Route exact path="/about">
-            <AboutUs />
-          </Route>
-          <Route exact path="/">
-          <TextForm
-          formTitle="Enter The Text Here"
-          mode={mode}
-          showAlert={showAlert}
-        />
-          </Route>
-        </Switch>
-      </div>
+            <Route exact path="/about">
+              <AboutUs mode = {mode}/>
+            </Route>
+
+            <Route exact path="/">
+              <TextForm
+                formTitle="Enter The Text Here" mode={mode} showAlert={showAlert}/>
+            </Route>
+            
+          </Switch>
+        </div>
       </Router>
     </>
   );
