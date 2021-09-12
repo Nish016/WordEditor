@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
 export default function TextForm(props) {
-  
   //UpperCase Function
   const onUpClick = () => {
     let newText = Text.toUpperCase();
     setText(newText);
-    props.showAlert("Converted to Upper Case!" , "success");
+    props.showAlert("Converted to Upper Case!", "success");
   };
 
   //LowerCase Function
@@ -35,10 +34,7 @@ export default function TextForm(props) {
 
   //Copy Text Function
   const copyText = () => {
-    var Text = document.getElementById("myBox");
-    Text.select();
-    navigator.clipboard.writeText(Text.value);
-    document.getSelection().removeAllRanges();  //To deselect text after copying
+    navigator.clipboard.writeText(Text);
     props.showAlert("Text Copied!", "success");
   };
 
@@ -67,7 +63,6 @@ export default function TextForm(props) {
           <textarea
             className="form-control"
             onChange={onChangeClick}
-            
             //If mode is dark background color is black otherwise white and text color will be according to mode
             style={{
               backgroundColor: props.mode === "dark" ? "black" : "white",
@@ -78,23 +73,47 @@ export default function TextForm(props) {
             rows="15"
           ></textarea>
         </div>
-        
-        <button disabled = {Text.length === 0} className="btn btn-primary mx-2 my-1" onClick={onUpClick}>
+
+        <button
+          disabled={Text.length === 0}
+          className="btn btn-primary mx-2 my-1"
+          onClick={onUpClick}
+        >
           Convert To Uppercase
         </button>
-        <button disabled = {Text.length === 0} className="btn btn-primary mx-2 my-1" onClick={onLowClick}>
+        <button
+          disabled={Text.length === 0}
+          className="btn btn-primary mx-2 my-1"
+          onClick={onLowClick}
+        >
           Convert To Lowercase
         </button>
-        <button disabled = {Text.length === 0} className="btn btn-primary mx-2 my-1" onClick={intoTitleCase}>
+        <button
+          disabled={Text.length === 0}
+          className="btn btn-primary mx-2 my-1"
+          onClick={intoTitleCase}
+        >
           Convert To Title Case
         </button>
-        <button disabled = {Text.length === 0} className="btn btn-primary mx-2 my-1" onClick={removeSpace}>
+        <button
+          disabled={Text.length === 0}
+          className="btn btn-primary mx-2 my-1"
+          onClick={removeSpace}
+        >
           Remove Extra Spaces
         </button>
-        <button disabled = {Text.length === 0} className="btn btn-primary mx-2 my-1" onClick={copyText}>
+        <button
+          disabled={Text.length === 0}
+          className="btn btn-primary mx-2 my-1"
+          onClick={copyText}
+        >
           Copy Text
         </button>
-        <button disabled = {Text.length === 0} className="btn btn-primary mx-2 my-1" onClick={clearText}>
+        <button
+          disabled={Text.length === 0}
+          className="btn btn-primary mx-2 my-1"
+          onClick={clearText}
+        >
           Clear Text
         </button>
       </div>
@@ -104,9 +123,20 @@ export default function TextForm(props) {
       >
         <h1>Your Text Summary</h1>
         <p>
-          {Text.split(" ").filter((element) => {return element.length!==0}).length} words and {Text.length} characters
+          {
+            Text.split(/\s+/).filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          words and {Text.length} characters
         </p>
-        <p>{0.008 * Text.split(" ").filter((element) => {return element.length!==0}).length} minutes read</p>
+        <p>
+          {0.008 *
+            Text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length}{" "}
+          minutes read
+        </p>
         <h2>Preview</h2>
         <p>{Text.length > 0 ? Text : "Nothing to preview"}</p>
       </div>
